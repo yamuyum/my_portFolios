@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>TEST画面を表示しています</h1>
+    <h1>サンプルフォームです。</h1>
+    <form action="/sampleform-post" method="POST">
+        <input name="data1"></input>
+        <button type="submit">送信</button>
+    </form>
+</div>
+{% endblock %}
