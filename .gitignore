@@ -154,6 +154,10 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+# テンプレート
+/template
+/tokens
+
 # firebase系
 .firebase
 .firebaserc
