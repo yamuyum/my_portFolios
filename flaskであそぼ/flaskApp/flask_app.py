@@ -1,7 +1,7 @@
 # coding: utf-8
-from flaskApp import app
-from flask import render_template, request  # request追加
+from flaskであそぼ.flaskApp import app
 from .src import testFunc
+from flask import render_template, redirect, url_for, request, session
 
 
 @app.route('/')
@@ -16,7 +16,7 @@ def index():
 
 
 @app.route('/test')
-def other1():
+def test_1():
     return render_template('test1.html')
 
 
@@ -28,3 +28,7 @@ def sample_form_temp():
     value = testFunc.testFunction(req1)
 
     return f'POST受け取ったよ: {value}'
+
+
+def startApp():
+    app.run(debug=True)
