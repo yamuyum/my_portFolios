@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>top(ヘッダーから他とんでね)</h1>
+    <!-- コンポで値受け渡しの手法がわからないからここでベタガキする -->
+    {% for post in postDatas %}
+    <div class="card article">
+        <!-- 投稿者情報 -->
+        <div class="card-header">
+            <!-- ちょっと仮で -->
+            <img class="account-img rounded-circle" src="{{ post.imgUrl }}">
+            <a class="text-dark user-link" href="{{ post.postID }}">{{ post.postID }}</a>
+        </div>
+        <!-- メイン画像 -->
+        <div class="main-img-wrapper bg-light">
+            <img src="{{ post.imgUrl }}" class="card-img-top post-media rounded-0" alt="">
+        </div>
+        <!-- いいねや文章 -->
+        <div class="card-body pb-2">
+            <div class="card-text post-meta-data">
+                {% if true %}
+                <span id="l-{{ post.postID }}" class="up-info like liked"><i class='fas fa-heart'></i></span>
+                {% else %}
+                <span id="l-{{ post.postID }}" class="up-info like"><i class='far fa-heart'></i></span>
+                {% endif %}
+
+                <span class="up-info"><i class="far fa-comment"></i></span>
+                <span id="sh-{{ post.postID }}" class="up-info share"><i class="fa fa-share"></i></span>
+
+
+                <div class="like-counter">
+                    <span id="like-{{ post.postID }}" class="like-count">333</span>
+                    likes
+                </div>
+            </div>
+            <span class="card-text">
+                <a class="text-dark user-link " href="{{ post.postID }}">{{
+                    post.uid }}</a>
+                {{ post.content }}
+            </span>
+            <div class="comments" id="comments-on-{{ post.pid }}">
+                {% if post.comments %}
+                {% for comment in post.comments %}
+                <span class="comment" id="c{{ comment.cid }}">
+                    <a class="text-dark user-link" href="{{ url_for('get_user', username=comment.author.username) }}">{{
+                        comment.author.username }}</a>
+                    {{ comment.content }}
+                    {% if comment.author == currentUser.uid %}
+                    <small class="float-right delete-comment" id="comment-{{ comment.cid }}">
+                        <a class="text-danger" href="#">delete</a>
+                    </small>
+                    {% endif %}
+                </span>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <small class="text-muted text-uppercase">1時間前</small>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% if currentUser.is_authenticated %}
+            <textarea class="text-muted comment-box make-comment border-bottom pl-2 pr-2"
+                id="comment-on-{{ post.postID }}" placeholder="Add a comment.."></textarea>
+            <button class="btn post-comment" id="c-{{ post.postID }}">Post</button>
+            {% else %}
+            <div class="p-2">
+                <a href="/login" class="text-muted">Login to comment</a>
+            </div>
+            {% endif %}
+        </ul>
+
+    </div>
+
+    {% endfor %}
+
+
+</div>
+{% endblock %}
